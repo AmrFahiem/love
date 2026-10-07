@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You ❤️🌹</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #3b0912; /* لون نبيتي عميق وفخم */
+            color: #ff4d6d;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .container {
+            background-color: #26050b;
+            padding: 60px;
+            border-radius: 40px;
+            border: 3px solid #ff1e4d;
+            box-shadow: 0 0 40px rgba(255, 30, 77, 0.6), inset 0 0 20px rgba(255, 30, 77, 0.4);
+            max-width: 650px;
+            width: 90%;
+            transition: all 0.5s ease;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 50px;
+            font-weight: bold;
+            color: #ff4d6d;
+            text-shadow: 0 0 20px #ff1e4d, 0 0 30px #ff1e4d;
+            letter-spacing: 2px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 120px; /* زيادة المسافة الواسعة بين الزرارين */
+            position: relative;
+            min-height: 80px;
+            align-items: center;
+        }
+
+        button {
+            padding: 18px 45px;
+            font-size: 1.6rem;
+            border: 2px solid #ff1e4d;
+            background-color: #3b0912;
+            color: #ff4d6d;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            font-weight: bold;
+            box-shadow: 0 0 15px rgba(255, 30, 77, 0.4);
+            outline: none;
+        }
+
+        button:hover {
+            background-color: #ff1e4d;
+            color: #26050b;
+            box-shadow: 0 0 30px #ff1e4d, 0 0 50px #ff1e4d;
+            transform: scale(1.1);
+        }
+
+        #no-btn {
+            position: absolute;
+            right: 20%;
+        }
+
+        #yes-btn {
+            position: absolute;
+            left: 20%;
+        }
+
+        /* Floating Hearts and Roses Animation */
+        .floating-item {
+            position: absolute;
+            font-size: 2.5rem;
+            text-shadow: 0 0 15px #ff1e4d;
+            animation: floatAndSpin 5s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes floatAndSpin {
+            0% {
+                transform: translateY(110vh) translateX(0) scale(0.5) rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(50vh) translateX(50px) scale(1.2) rotate(180deg);
+            }
+            100% {
+                transform: translateY(-10vh) translateX(-50px) scale(0) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="main-container">
+        <h1 id="question">Do you love me?</h1>
+        <div class="buttons">
+            <button id="yes-btn" onclick="nextPage()">Yes</button>
+            <button id="no-btn" onmouseover="moveNoButton()" onclick="moveNoButton()">No</button>
+        </div>
+    </div>
+
+    <script>
+        function moveNoButton() {
+            const noBtn = document.getElementById('no-btn');
+            
+            const maxX = window.innerWidth - noBtn.offsetWidth - 50;
+            const maxY = window.innerHeight - noBtn.offsetHeight - 50;
+
+            const newX = Math.random() * maxX;
+            const newY = Math.random() * maxY;
+
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = newX + 'px';
+            noBtn.style.top = newY + 'px';
+        }
+
+        function nextPage() {
+            const container = document.getElementById('main-container');
+            container.innerHTML = `
+                <h1 style="color: #ff4d6d; font-size: 3.8rem; text-shadow: 0 0 25px #ff1e4d;">I love you too! ❤️🌹</h1>
+            `;
+            container.style.boxShadow = "0 0 60px #ff1e4d, inset 0 0 30px #ff1e4d";
+            container.style.borderColor = "#ff1e4d";
+
+            // Start continuous items explosion (Hearts and Roses)
+            setInterval(createFloatingItem, 80);
+        }
+
+        function createFloatingItem() {
+            const item = document.createElement('div');
+            item.classList.add('floating-item');
+            
+            const icons = ['❤️', '🌹', '💖', '💐', '💕', '🌹'];
+            item.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+            
+            item.style.left = Math.random() * 100 + 'vw';
+            item.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            item.style.fontSize = (Math.random() * 1.5 + 1.2) + 'rem';
+            document.body.appendChild(item);
+
+            setTimeout(() => {
+                item.remove();
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
